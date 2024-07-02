@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Web Video Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .header {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            padding: 10px;
+            background-color: yellow;
+            color: red;
+            border: 10px solid transparent;
+            border-image: linear-gradient(90deg, red, blue, red, blue) 1;
+            animation: police-lights 0.5s infinite;
+            
+        }
+        @keyframes police-lights {
+            0% { border-image: linear-gradient(90deg, red, blue, red, blue) 1; }
+            50% { border-image: linear-gradient(90deg, blue, red, blue, red) 1; }
+            100% { border-image: linear-gradient(90deg, red, blue, red, blue) 1; }
+        }
+           }
+        .main-content {
+            max-width: 1000px;
+            margin: 10px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .video-player {
+            width: 100%;
+            max-width: 800px; /* Adjust maximum width as needed */
+            background: #f5f5f5;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: sticky;
+            top: 10px; /* Adjust top offset to your design */
+            z-index: 10;
+        }
+        .video-wrapper {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        .video-wrapper iframe, .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .video-info {
+            padding: 10px;
+            text-align: center;
+        }
+        .video-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .video-description {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .control-button {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .control-button:hover {
+            background: #0056b3;
+        }
+        .video-list {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 20px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .video-list-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .video-list-item:hover {
+            background-color: #e0e0e0;
+        }
+        .video-thumbnail {
+            width: 120px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 10px;
+            background-size: cover;
+            background-position: center;
+        }
+        .thumbnail-info {
+            flex: 1;
+        }
+        .thumbnail-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .thumbnail-description {
+            font-size: 12px;
+            color: #777;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .video-player, .video-list {
+                max-width: 100%;
+            }
+        }
+
+        footer {
+            margin: 0px;
+            padding: 20px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            border-bottom: 6px solid #007bff;
+            transition: color 0.3s ease;
+            animation: borderAnimation 2s infinite;
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+        }
+
+        footer:hover {
+            color: #0056b3;
+            background: #e2e6ea;
+        }
+
+        
+
+        footer span {
+            display: inline-block;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="header">DARK WEB VIDEO TEST</div>
+
+    <div class="main-content">
+        <div class="video-player" id="videoPlayer">
+            <div class="video-wrapper">
+                <video controls id="mainVideo">
+                    <source src="video.mp4" type="video/mp4" id="video-source">
+                </video>
+            </div>
+            <div class="video-info">
+                <div class="video-controls">
+                    <button class="control-button" onclick="playPause()">Play/Pause</button>
+                    <button class="control-button" onclick="stopVideo()">Stop</button>
+                    <button class="control-button" onclick="reverseVideo()">Reverse</button>
+                    <div id="loadingIndicator" style="display: none;">Loading...</div>
+                </div>
+                <div class="video-title" id="video-title">CLICK ANY Video in The List</div>
+                <div class="video-description" id="video-description">Scroll Up and Down The videos Playlist to See Eve Videos On your needs  (Enjoy Here )<br> <h2 style="color:red;">[ Credits :- xCyber Fury ]</h2></div>
+            </div>
+        </div>
+        <div class="video-list" id="videoList">
+            <!-- Video list items will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        const mainVideo = document.getElementById('mainVideo');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const videoTitle = document.getElementById('video-title');
+        const videoDescription = document.getElementById('video-description');
+
+        function playPause() {
+            if (mainVideo.paused) {
+                mainVideo.play();
+            } else {
+                mainVideo.pause();
+            }
+        }
+
+        function stopVideo() {
+            mainVideo.pause();
+            mainVideo.currentTime = 0;
+        }
+
+        function reverseVideo() {
+            mainVideo.currentTime -= 5;
+        }
+
+        mainVideo.addEventListener('playing', () => {
+            loadingIndicator.style.display = 'none';
+        });
+
+        mainVideo.addEventListener('waiting', () => {
+            loadingIndicator.style.display = 'block';
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('get_videos.php')
+                .then(response => response.json())
+                .then(videos => {
+                    const videoList = document.getElementById('videoList');
+                    
+                    Object.keys(videos).forEach(videoKey => {
+                        const videoData = videos[videoKey];
+
+                        const videoListItem = document.createElement('div');
+                        videoListItem.classList.add('video-list-item');
+                        videoListItem.setAttribute('data-video-key', videoKey);
+                        videoListItem.setAttribute('data-video-title', videoData.title);
+                        videoListItem.setAttribute('data-video-description', videoData.description);
+
+                        const thumbnail = document.createElement('div');
+                        thumbnail.classList.add('video-thumbnail');
+                        thumbnail.style.backgroundImage = `url('${videoData.thumbnail_url}')`;
+                        videoListItem.appendChild(thumbnail);
+
+                        const thumbnailInfo = document.createElement('div');
+                        thumbnailInfo.classList.add('thumbnail-info');
+
+                        const title = document.createElement('div');
+                        title.classList.add('thumbnail-title');
+                        title.textContent = videoData.title;
+                        thumbnailInfo.appendChild(title);
+
+                        const description = document.createElement('div');
+                        description.classList.add('thumbnail-description');
+                        description.textContent = videoData.description;
+                        thumbnailInfo.appendChild(description);
+
+                        videoListItem.appendChild(thumbnailInfo);
+
+                        videoListItem.addEventListener('click', () => {
+                            loadVideo(videoKey, videoData.title, videoData.description, videoData.video_link);
+                        });
+
+                        videoList.appendChild(videoListItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching videos:', error));
+        });
+
+        function loadVideo(videoKey, title, description, videoSrc) {
+            mainVideo.src = videoSrc;
+            mainVideo.load();
+            mainVideo.play();
+            videoTitle.innerText = title;
+            videoDescription.innerText = description;
+        }
+    </script>
+
+    <footer><a href="main.php">BACK TO HOME</a></footer>
+    <footer>
+        <span>2024 &copy; Design By xCyber Fury</span>
+    </footer>
+</body>
+</html>

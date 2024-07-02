@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBK MADMAX Music Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="music/style.css">
+</head>
+<body>
+    <div class="player-container">
+        <div class="player">
+            <div class="cover">
+                <img src="cover.jpg" alt="Album Cover" id="album-cover">
+            </div>
+            <div class="info">
+                <h3 id="song-title">Song Title</h3>
+                <p id="artist-name">Artist Name</p>
+            </div>
+            <div class="controls">
+                <button id="prev" class="control-btn">Prev</button>
+                <button id="play" class="control-btn">Play</button>
+                <button id="next" class="control-btn">Next</button>
+            </div>
+            <div class="progress-container">
+                <div class="progress">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section id="content">
+        <li><a href="main.php"><h2>🔴BACK TO HOME⛔️</h2></a></li>
+    </section>
+    <audio id="audio"></audio>
+    <script src="music/script.js"></script>
+</body>
+</html>
